@@ -1,8 +1,14 @@
 
-id_list = ["muzi", "frodo", "apeach", "neo"]
-report = ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"]
-k = 2
+#example 1
 
+# =============================================================================
+# id_list = ["muzi", "frodo", "apeach", "neo"]
+# report = ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"]
+# k = 2
+# =============================================================================
+
+
+#example 2
 
 # =============================================================================
 # id_list = ["con", "ryan"]
@@ -10,11 +16,6 @@ k = 2
 # k = 3
 # =============================================================================
 
-def checkidlist(id_list) :
-    return len(id_list) >= 2 and len(id_list) <= 1000 
-
-def checkreport(report) :
-    return len(report) >= 3 and len(report) <= 200,000
 
 
 def solution(id_list, report, k):
