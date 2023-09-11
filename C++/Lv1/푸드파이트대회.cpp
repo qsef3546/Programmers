@@ -43,5 +43,5 @@ string solution(vector<int> food) {
 
 void main(){
     vector<int> food = {1, 3, 4, 6};
-    solution(food);
+    string answer = solution(food);
 }
