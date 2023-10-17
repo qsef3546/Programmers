@@ -28,3 +28,5 @@ def solution(n):
 
 
 N = 5000
+
+ans = solution(N)
