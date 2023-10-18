@@ -11,20 +11,21 @@
 def solution(people, limit):
     answer = 0
     people.sort()
-    while people:
-        m = people.pop()
-        for w in reversed(range(len(people))):
-            if m + people[w] <= limit:
-                del people[w]
-                break
-        answer += 1
+    w = 0  #앞지점 위치 최저 몸무게 사람 순
+    h = len(people)-1 #끝지점 위치 최고 몸무게 사람 순
+    while h >= w: #끝지점이 앞지점보다 더 전이면 이미 비교한 대상이다
+        if w == h: #앞지점과 끝지점 위치가 같을경우 같은 위치에 있다는 것. 즉, 구명보트에 태울 사람이 1명밖에 없다는 것이다.
+            answer += 1
+            break
+        if people[h] + people[w] <= limit: # h 번째 무거운 사람과 w 번째 가벼운 사람 몸무게 총합이 limit을 넘지 않을경우 둘을 한 번에 구명보트에 태울 수 있다. 
+            w += 1 # 앞지점 이동
+        h -= 1 # 끝지점 이동
+        answer += 1 # 사용한 보트 수 증가
+
     return answer
 
-
-# people = [70, 50, 80, 50]
-people = [30, 40, 70, 60, 50]
+people = [70, 50, 80, 50]
+# people = [30, 40, 70, 60, 50]
 limit = 100
 
 answer = solution(people, limit)
-
-print('ans = ', answer)
