@@ -27,8 +27,7 @@
 from functools import reduce
 from math import sqrt
 def solution(friendsCnt, cookiePanDims):
-    answer = 0
-    sd = [x[0] * x[1] for x in cookiePanDims]
+
     s = int(sqrt(reduce(lambda x, y: x + y[0]*y[1], cookiePanDims, 0) // friendsCnt))
     w = min(list(filter(lambda x: x <= s, sum(cookiePandims, []))))
     return w
