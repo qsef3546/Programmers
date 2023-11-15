@@ -18,7 +18,7 @@ from functools import reduce
 def solution(M, x1, y1, x2, y2):
     sumM = 0
     for i in range(x1-1, x2-1+1):
-        sumM += reduce(lambda x, y: x + y, M[i][y1-1:y2+1-1], 0)
+        sumM += reduce(lambda x, y: x + y, M[i][y1-1:y2-1+1], 0)
     return sumM
 
 
