@@ -13,27 +13,25 @@
 # 출력
 # A를 B로 바꾸는데 필요한 연산의 최솟값에 1을 더한 값을 출력한다. 만들 수 없는 경우에는 -1을 출력한다.
 
-def req(a,b,c):
+def req(a, b, c):
     r = []
-    print(a,b)
     if a > b:
         return -1
     elif a == b:
         return c
     else:
-        r.append(req(a*10+1, b, c+1))
-        r.append(req(a*2, b, c+1))
+        r.append(req(a * 10 + 1, b, c + 1))
+        r.append(req(a * 2, b, c + 1))
     res = list(filter(lambda x: x > 0, r))
     return min(res) if res else -1
-def solution(a,b):
-    s =req(a, b, 0)
-    print(s)
 
-    return s
+
+def solution(a, b):
+    return req(a, b, 0)
 
 
 A = 2
 B = 82
 
 answer = solution(A, B)
-print('answer = ',answer)
+print('answer = ', answer)
