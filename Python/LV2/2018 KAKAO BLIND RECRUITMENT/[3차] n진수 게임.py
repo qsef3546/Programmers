@@ -25,25 +25,33 @@
 # 출력 형식
 # 튜브가 말해야 하는 숫자 t개를 공백 없이 차례대로 나타낸 문자열. 단, 10~15는 각각 대문자 A~F로 출력한다.
 
-def ndiv(n, tm):
 
-    w = [0]
+
+def ndiv(n, tm):
+    idx = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
+    w = ['0'] #0부터 시작하지만 0은 n진법 변환 루프에서 조건으로 사용되기에 초기에 넣는다.
     num = 1
-    while len(w) < tm:
-        nD = ''
-        while n > 0:
-            n, d = divmod(num, n)
-            nD += str(d)
-        w += nD[::-1]
-    return w.split()
+    while len(w) < tm: #필요 개수 x 인원 수 만큼 반복
+        nD, nm = '', num
+        while nm > 0: # n진법으로 변환
+            nm, d = divmod(nm, n)
+            nD += str(d) if d < 10 else idx[d] # 나머지가 10이상일 경우 조건대로 A~F로 변환
+        w += nD[::-1] #변환된 진법이 역순으로 되어있으므로 다시 역순
+        num += 1
+    return w
+
+
 def solution(n, t, m, p):
     answer = ''
-    answer = ndiv(n, t*m)
-    return answer
+    num = ndiv(n, t * m)
+    for x in range(0,len(num)):
+        if x % m == (p-1):
+            answer += num[x] #필요 개수만 answer에 넣기
+    return answer[:t]
 
 
-n = 2
-t = 4
+n = 16
+t = 16
 m = 2
 p = 1
 
