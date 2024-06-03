@@ -16,24 +16,17 @@
 
 function solution(keymap, targets) {
     var answer = [];
-    for(var target of targets){
-        var di = 0
-        for(var w of target){
-            var s = []
-            for(var key of keymap){
-                var f = key.indexOf(w)
-                console.log("key = ",f)
-                if(f != -1)
-                    s.push(f+1)
+    for(var target of targets){  // 특정 문자열 순서대로 확인
+        var di = 0 //특정 문자열을 작성할 수 있는 최소 키 입력 횟수
+        for(var w of target){ //특정 문자열의 문자들 순서대로 확인
+            var key = keymap.map((value) => value.indexOf(w)) //휴대폰 자판들 중 현재 특정 문자 입력 최소 횟수 리스트 (단, 없을시 -1)
+            if(Math.max(...key) == -1){ // 최소 횟수의 최댓값이 -1이라면 휴대폰 자판으로 만들 수 없는 문자
+                di = 0 //누적으로 저장된 각 문자 키입력 횟수 초기화
+                break;
             }
-            if(s.length > 0){
-                di += Math.min(...s)     
-                console.log(di)
-            }
-            else
-                break
+            di += Math.min(...(key.filter((value) => value >= 0))) + 1  //키 입력 횟수가 제일 작은 횟수 + 1 저장 (리스트는 0부터이므로 + 1 해야한다.)
         }
-        answer.push(di > 0 ? di : -1)
+        answer.push(di > 0 ? di : -1) // 특정문자열을 작성할 수 있는 최소 키 입력 횟수가 0이라면 작성할 수 없는 특정문자열.
     }
     return answer;
 }
@@ -42,7 +35,7 @@ function solution(keymap, targets) {
 // var keymap = ["ABACD", "BCEFD"]
 // var targets = ["ABCD","AABB"]
 var keymap = ["ABC"]
-var targets = ["DA"]
+var targets = ["AD"]
 result = solution(keymap, targets)
 
 console.log("result = ", result)
