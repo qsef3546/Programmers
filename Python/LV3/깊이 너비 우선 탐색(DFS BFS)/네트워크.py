@@ -14,14 +14,25 @@
 def solution(n, computers):
     w = []
     s = ''
-    for comp in computers:
-        s=''.join([str(x) if comp[x] != 0 else '' for x in range(n)])
+    for comps in computers:
+        s= ''.join([str(x) if comps[x] != 0 else '' for x in range(n)])
+        # d= list(filter(lambda x : x[0] == s[0] , w))
         w.append(s)
 
-    print(set(w))
-    # for
-    # print(net)
-    print(computers)
+    net_n = []
+    print('w = ', w)
+    for net in range(n):
+        net_list = list(filter(lambda x : x[0] == str(net) , w))
+        print('net list = ',net_list)
+        if not net_list:
+            continue
+        net_uni = set()
+        for nl in net_list:
+            net_uni = net_uni.union(set(nl))
+
+        net_n.append(''.join(sorted(net_uni)))
+    print('net_n = ', net_n)
+
     answer = 0
     return answer
 
