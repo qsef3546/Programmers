@@ -12,11 +12,11 @@ import math
 
 def solution(dirs):
     answer = 0
-    m = 5
-    matrix = []
-    x, y = 0, 0
+    m = 5  #좌표 맥스값
+    matrix = [] #이동한 위치넣을 리스트  원소 : '현재위치이동위치' => U일경우, matrix.append('0001')
+    x, y = 0, 0 #현재 위치
     for dir in dirs:
-        mx,my = 1, 1
+        mx,my = 0, 0
         if dir == "U" and y < m:
             my += 1
         elif dir == "D" and y > -m:
@@ -27,17 +27,18 @@ def solution(dirs):
             mx -= 1
         else:
             continue
-        if [mx, my] not in matrix:
-            matrix.append([])
+        way = [f'{x}{y}{x+mx}{y+my}', f'{x+mx}{y+my}{x}{y}'] #현재->이동위치 , 이동위치 -> 현재위치 는 이동하는 곳만 다를 뿐 같은 길이다.
+        if all(w not in matrix for w in way): #이동한 길이 matrix 에 없다면 처음 가본 길이다.
+            matrix.append(way[0])
             answer += 1
-        else:
-            break
+        x += mx
+        y += my
 
-    for m in matrix:
-        print(m)
+    # answer = len(matrix)
     return answer
 
 
-dirs = "ULURRDLLU"
+# dirs = "ULURRDLLU"
+dirs ="RL"
 result = solution(dirs)
 print("result = ", result)
