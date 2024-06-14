@@ -16,26 +16,22 @@
 order = '1231'
 def solution(ingredient):
     answer = 0
-    ing = ''.join(map(str, ingredient))
-    wd = ''
-    idx = 0
-    while idx < len(ing):
-        wd += ing[idx]
-        print(wd)
-        if (ing[idx] == 2 and wd[-2:] != '12') or (ing[idx] == 3 and wd[-3:] != '123'):
-            wd = ''
-            idx+=1
-            continue
-        if len(wd) >= len(order) and order in wd:
-            ing = ing.replace(order,'',1)
-            wd = wd[:-len(order)]
-            answer +=1
-            idx = len(wd)
+    ing = map(str, ingredient) # int list -> str list
+    wd = '' # 원소 저장할 문자열 변수
+    for i in ing:
+        wd += i # 0번째 문자 부터 누적 저장
+        if len(wd) >=len(order): #누적 저장된 문자열길이가 order 길이보다 클 경우만 비교 
+            if wd[-len(order):] == order: # 마지막 4단어가 '1231' 인지 확인
+                wd = wd[:-len(order)] # 햄버거 만들어야 되므로 재료 삭제
+                answer+=1 #햄버거 만드는 개수 1개 증가
+
+    return answer
+
 
 
 
 ingredient = [2, 1, 1, 2, 3, 1, 2, 3, 1]
-# ingredient = [1, 2, 3, 5, 3, 4, 2, 3, 1,5]
-
+# ingredient = [1, 2, 3, 5, 3, 4, 2, 3, 1]
+#
 result = solution(ingredient)
 print("result = ", result)
