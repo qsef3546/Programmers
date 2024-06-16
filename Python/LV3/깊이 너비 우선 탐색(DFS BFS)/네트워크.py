@@ -12,33 +12,28 @@
 # computer[i][i]는 항상 1입니다.
 
 def solution(n, computers):
-    w = []
-    s = ''
-    for comps in computers:
-        s= ''.join([str(x) if comps[x] != 0 else '' for x in range(n)])
-        # d= list(filter(lambda x : x[0] == s[0] , w))
-        w.append(s)
-
-    net_n = []
-    print('w = ', w)
-    for net in range(n):
-        net_list = list(filter(lambda x : x[0] == str(net) , w))
-        print('net list = ',net_list)
-        if not net_list:
-            continue
-        net_uni = set()
-        for nl in net_list:
-            net_uni = net_uni.union(set(nl))
-
-        net_n.append(''.join(sorted(net_uni)))
-    print('net_n = ', net_n)
-
     answer = 0
+    visit = [False] * n #각 네트워크 연결 여부
+
+    for i in range(n):
+        if not visit[i]:  #0번 네트워크 부터 방문 한 곳인지 확인
+            stack = [i] # 방문 안했을 경우 stack 네트워크 번호 넣기
+            while stack: #방문 할 곳이 없을 때까지 반복
+                node = stack.pop()
+                for compi, comp in enumerate(computers[node]): # 연결된 곳의 네트워크 리스트 추출
+                    if comp and visit[compi] == False: # 어떤 네트워크와 연결 돼있고 방문한 적이 없을 경우
+                        visit[compi] = True #방문 했다고 표시
+                        stack.append(compi) #방문 한 곳에서 또 다른 네트워크가 연결돼있는지 확인하기 위하여 스택에 추가
+            answer += 1 # i번 네트워크 클라우드 개수 추가
+
+
     return answer
 
 
-n = 3
+
 # computers = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
-computers = [[1, 1, 0], [1, 1, 1], [0, 1, 1]]
+# computers = [[1, 1, 0], [1, 1, 1], [0, 1, 1]]
+computers = [[1,1,1,0,1],[1,1,1,0,0],[1,1,1,1,1],[0,0,1,1,1],[1,0,1,1,1]]
+n = len(computers)
 result = solution(n, computers)
 print("result = ", result)
